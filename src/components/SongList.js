@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 } from 'uuid';
 import NewSongForm from './NewSongForm';
 
@@ -10,10 +10,19 @@ const SongList = () => {
         {title: 'memory gospel', id: 2},
         {title: 'this wild darkness', id: 3}
     ]);
+    const [age, setAge] = useState(20); //Prueba
 
     const addSong = (title) => {
         setSongs([...songs, { title, id: v4() }]);
     }
+
+    useEffect(() => {
+        console.log('useEffect hook ran', songs);
+    }, [songs]) //Actualiza solo cuando cambia songs
+
+    useEffect(() => { //Prueba (puede haber tantos useEffect como queramos)
+        console.log('useEffect hook ran', age);
+    }, [age]) //Actualiza solo cuando cambia age
 
     return ( 
         <div className="song-list">
@@ -25,6 +34,7 @@ const SongList = () => {
                 })}
             </ul>
             <NewSongForm addSong={addSong} />
+            <button onClick={() => setAge(age + 1)} >Add 1 to age: {age}</button> {/**Prueba */}
         </div>
      );
 }
