@@ -1,12 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { v4 } from 'uuid';
+
+//v4() nos devuelve una id aleatoria
 
 const SongList = () => {
+    const [songs, setSongs] = useState([
+        {title: 'almost home', id: 1},
+        {title: 'memory gospel', id: 2},
+        {title: 'this wild darkness', id: 3}
+    ]);
+
+    const addSong = () => {
+        setSongs([...songs, { title: 'new song', id: v4() }]);
+    }
+
     return ( 
         <div className="song-list">
             <ul>
-                <li>this wild darkness</li>
-                <li>memory gospel</li>
+                {songs.map(song => {
+                   return ( 
+                    <li key={song.id}>{song.title}</li>
+                   );
+                })}
             </ul>
+            <button onClick={addSong}>Add a song</button>
         </div>
      );
 }
